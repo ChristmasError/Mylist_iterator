@@ -17,21 +17,21 @@ public:
 	//iterator
 	class iterator {
 	private:
-		Node* cur; //Ö¸Õë£¬Ö¸ÏòlinkµÄ½áµã
+		Node* cur; //æŒ‡é’ˆï¼ŒæŒ‡å‘linkçš„ç»“ç‚¹
 	public:
-		friend class list;   //½«listÉùÃ÷ÎªiteratorµÄÓÑÔª£¬Ê¹list¿ÉÒÔ·ÃÎÊiteratorµÄprivate
+		friend class list;   //å°†listå£°æ˜ä¸ºiteratorçš„å‹å…ƒï¼Œä½¿listå¯ä»¥è®¿é—®iteratorçš„private
 		explicit iterator(Node* p=0) {cur = p; }
 		bool operator ==(iterator& x) { return (*this).cur == x.cur; }
 		bool operator !=(iterator& x) { return (*this).cur != x.cur; }
 		T operator*() { return cur->data; }
-		//Èç¹û²»Ğ´ÕâÒ»¸ö£¬ÎÒÃÇ¿ÉÒÔÊ¹ÓÃ±àĞ´ÖØÔØÈ«¾Öº¯Êı
+		//å¦‚æœä¸å†™è¿™ä¸€ä¸ªï¼Œæˆ‘ä»¬å¯ä»¥ä½¿ç”¨ç¼–å†™é‡è½½å…¨å±€å‡½æ•°
 		//ostream operator<<(ostream& os,const iterator& it)
-		//À´ÊµÏÖdisplay()ÖĞµÄ¡°cout<<*iterator;¡±
-		iterator& operator++() {  //Ç°×º++
+		//æ¥å®ç°display()ä¸­çš„â€œcout<<*iterator;â€
+		iterator& operator++() {  //å‰ç¼€++
 			cur = cur->next;
 			return *this;
 		}
-		iterator operator++(int) { //ºó×º++
+		iterator operator++(int) { //åç¼€++
 			iterator temp = *this;
 			++(*this);
 			return temp;
@@ -49,7 +49,7 @@ public:
 			return cur;
 		}
 	};
-	//_listµÄµü´úÆ÷
+	//_listçš„è¿­ä»£å™¨
 private:
 	Node * head,*tail;
 	int _size;
@@ -79,14 +79,13 @@ public:
 		return iterator(tail);
 	}
 	iterator insert(iterator pos, const T& value) { 
-		//const T& value £ºconst ·ÀÖ¹ÒıÓÃÒıÓÃ±»ĞŞ¸Ä£¬ÒıÓÃ´«µİÏàµ±ÓÚ´«µİÖ¸Õë£¬8×Ö½Ú 
-		//¶øÖµ´«µİ»áµ÷ÓÃ¸´ÖÆ¹¹Ôìº¯Êı£¬Õ¼ÓÃÄÚ´æ´ó
+		//const T& value ï¼šconst é˜²æ­¢å¼•ç”¨å¼•ç”¨è¢«ä¿®æ”¹ï¼Œå¼•ç”¨ä¼ é€’ç›¸å½“äºä¼ é€’æŒ‡é’ˆï¼Œ8å­—èŠ‚ 
+		//è€Œå€¼ä¼ é€’ä¼šè°ƒç”¨å¤åˆ¶æ„é€ å‡½æ•°ï¼Œå ç”¨å†…å­˜å¤§
 		Node* p = new Node(value, pos.cur, pos.cur->prev);
 		_size++;
 		p->prev->next = p;
 		pos.cur->prev = p;
 		return iterator(p);
-		//dalaoĞ´·¨: return iterator(p->prev = p->prev->next = new Node(val, p, p->prev));
 	}
 	iterator erase(iterator pos) {
 		Node* p = pos.cur;
